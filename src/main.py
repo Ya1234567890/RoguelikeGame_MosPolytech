@@ -8,7 +8,7 @@ try:
 	__import__(package)
 except ImportError:
 	print(f"Устанавливаю {package}...")
-	subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+	subprocess.check_call(["python", "-m", "pip", "install", package])
 import tcod
 
 from setup_game import new_game
