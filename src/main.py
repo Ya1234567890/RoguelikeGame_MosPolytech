@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+
+import sys
+import subprocess
+package = "tcod"
+
+try:
+	__import__(package)
+except ImportError:
+	print(f"Устанавливаю {package}...")
+	subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 import tcod
 
 from setup_game import new_game
