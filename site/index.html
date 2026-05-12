@@ -4,237 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Roguelike Project | Hardcore Dungeon</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Courier New', 'Lucida Console', 'Monaco', monospace;
-            background: #1a1a1a;
-            color: #cccccc;
-            line-height: 1.4;
-            scroll-behavior: smooth;
-            font-size: 14px;
-        }
-
-        header {
-            background: #00000D;
-            color: #ff4444;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 3px solid #ff4444;
-            border-radius: 0px;
-            box-shadow: none;
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 0px #660000;
-        }
-
-        .logo p {
-            font-size: 0.75rem;
-            color: #888888;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            margin-top: 0.75rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-        }
-
-        .nav-btn {
-            background: #2a2a2a;
-            border: 1px solid #555555;
-            padding: 0.5rem 1.2rem;
-            border-radius: 0px;  /* ГРУБЫЕ КВАДРАТНЫЕ КНОПКИ */
-            color: #dddddd;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.1s linear;
-            font-size: 0.9rem;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-        }
-
-        .nav-btn:hover, .nav-btn.active {
-            background: #ff4444;
-            color: #000000;
-            transform: none;
-            border-color: #ff8888;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
-        }
-
-        /* СТРАНИЦЫ */
-        .page {
-            display: none;
-            animation: none;
-        }
-
-        .active-page {
-            display: block;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .card {
-            background: #0d0d0d;
-            border: 1px solid #333333;
-            border-radius: 0px;
-            box-shadow: none;
-            transition: none;
-            padding: 1rem;
-			display: flex;
-			flex-direction: column;
-        }
-
-        .card:hover {
-            background: #111111;
-            border-color: #ff4444;
-        }
-
-        .member-card {
-            text-align: center;
-            border-top: none;
-            border-left: 3px solid #ff4444;
-        }
-
-        .member-img {
-            width: 96px;
-            height: 96px;
-            background: #000000;
-            border: 1px solid #555555;
-            border-radius: 0px;
-            margin: 0 auto 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #ff4444;
-        }
-
-        .resource-link {
-            display: inline-block;
-            background: #111111;
-            padding: 0.4rem 0.8rem;
-            margin: 0.3rem 0.3rem 0 0;
-            border-radius: 0px;
-            text-decoration: none;
-            color: #ff8888;
-            font-weight: normal;
-            transition: 0.05s linear;
-            border: 1px solid #333333;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-        }
-
-
-        video, .diagram-placeholder, .news-img {
-            max-width: 100%;
-            border-radius: 0px;
-            margin: 1rem 0;
-            background: #000000;
-            border: 1px solid #333333;
-        }
-
-        .diagram-placeholder {
-            background: #0a0a0a;
-            color: #ff6666;
-            padding: 1.5rem;
-            text-align: center;
-            font-weight: bold;
-            font-family: monospace;
-            border: 1px dashed #ff4444;
-        }
-
-        .news-item {
-            background: #0d0d0d;
-            border: 1px solid #2a2a2a;
-            border-radius: 0px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: none;
-        }
-
-        .tag {
-            background: #2a0000;
-            color: #ff6666;
-            border-radius: 0px;
-            padding: 0.2rem 0.6rem;
-            font-size: 0.7rem;
-            display: inline-block;
-            font-family: monospace;
-            border: 1px solid #660000;
-        }
-
-        footer {
-            background: #000000;
-            color: #666666;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
-            border-top: 1px solid #333333;
-            font-size: 0.8rem;
-        }
-
-        h2 {
-            color: #ff6666;
-            font-family: 'Courier New', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-left: 4px solid #ff4444;
-            padding-left: 0.8rem;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        h3 {
-            color: #ff8888;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 0.5rem;
-            border-bottom: 1px dotted #444444;
-            display: inline-block;
-        }
-
-        /* ГРУБЫЙ СКРОЛЛ (если нужен) */
-        ::-webkit-scrollbar {
-            width: 8px;
-            background: #111111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #444444;
-            border-radius: 0px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff4444;
-        }
-
-        @media (max-width: 700px) {
-            .logo h1 { font-size: 1.2rem; }
-            .nav-btn { padding: 0.3rem 0.6rem; font-size: 0.7rem; }
-            body { font-size: 12px; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -277,7 +47,7 @@
 
         <h3>Видеопрезентация</h3>
         <video controls width="100%" poster="https://placehold.co/1280x720/2c5a73/white?text=Roguelike+Видео">
-            <source src="VIDEO.mp4" type="video/mp4">
+            <source src="images/VIDEO.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео. Вот <a href="#">ссылка на описание</a>.
         </video>
         <p style="font-size: 0.9rem; margin-top: 0.3rem;">*Демонстрационный ролик</p>
@@ -300,7 +70,7 @@
             <h3>Технологии</h3>
             <p>Frontend: HTML, CSS, JavaScript, Python.</p>
         </div>
-        <img src="photo_2026-05-11_20-51-16.jpg" alt="Игра" style="width:100%; border-radius: 28px; margin: 1rem 0;">
+        <img src="images/photo_2026-05-11_20-51-16.jpg" alt="Игра" style="width:100%; border-radius: 28px; margin: 1rem 0;">
         <p class="tag">Рис.1 — Генерация подземелия.</p>
     </div>
 
@@ -324,7 +94,6 @@
                 <p>Вклад: создание сайта с html, css, js.</p>
             </div>
         </div>
-        <!-- <div class="diagram-placeholder" style="background:#242424;">📸 Фото команды на защите концепции (май 2025)</div> -->
     </div>
 
     <!-- СТРАНИЦА «ЖУРНАЛ» -->
@@ -343,21 +112,22 @@
         <p>Определились с концепцией — создаём браузерную roguelike-игру. Изучили основные механики жанра: процедурную генерацию, пошаговый бой, систему лута. Начали писать первый прототип на Python.</p>
         <p><strong>Результат:</strong> Базовый игровой цикл, персонаж может двигаться по сетке.</p>
     </div>
-
-    <div class="news-item">
+	
+	    <div class="news-item">
         <span class="tag">Март 2026 (неделя 3-4)</span>
-        <h3>⚔️ Система боя и враги</h3>
-        <p>Реализовали пошаговую боевую систему. Добавили первого врага — "Slime". Интегрировали атаки, защиту и отображение здоровья. Появилась базовая механика смерти и возрождения.</p>
-        <p><strong>Результат:</strong> Рабочий бой, персонаж может умирать и начинать заново.</p>
+        <h3>🗺 Процедурная генерация уровней</h3>
+        <p>Создан алгоритм генерации подземелий на основе BSP-деревьев. Комнаты соединяются коридорами. Каждый заход генерирует уникальную карту с разным расположением врагов и сокровищ.</p>
+        <p><strong>Результат:</strong> Бесконечная реиграбельность — каждый забег уникален!</p>
+        <img src="images/photo_2026-05-11_20-51-21.jpg" alt="Генерация карты" style="width:100%; margin: 1rem 0;">
     </div>
 
     <div class="news-item">
         <span class="tag">Апрель 2026 (неделя 1-2)</span>
-        <h3>🗺 Процедурная генерация уровней</h3>
-        <p>Создан алгоритм генерации подземелий на основе BSP-деревьев. Комнаты соединяются коридорами. Каждый заход генерирует уникальную карту с разным расположением врагов и сокровищ.</p>
-        <p><strong>Результат:</strong> Бесконечная реиграбельность — каждый забег уникален!</p>
-        <img src="photo_2026-05-11_20-51-21.jpg" alt="Генерация карты" style="width:100%; margin: 1rem 0;">
+        <h3>⚔️ Система боя и враги</h3>
+        <p>Реализовали пошаговую боевую систему. Добавили первого врага — гоблин. Интегрировали атаки, защиту и отображение здоровья. Появилась базовая механика смерти и возрождения.</p>
+        <p><strong>Результат:</strong> Рабочий бой, персонаж может умирать и начинать заново.</p>
     </div>
+
 
     <div class="news-item">
         <span class="tag">Апрель 2026 (неделя 2-3)</span>
@@ -522,35 +292,9 @@
 </div>
 
 <footer>
-    <p>© 2025 Проектная деятельность Московкого политеха — команда «Roguelike».</p>
+    <p>© 2026 Проектная деятельность Московкого политеха — команда «Roguelike».</p>
 </footer>
 
-<script>
-    const pages = document.querySelectorAll('.page');
-    const btns = document.querySelectorAll('.nav-btn');
-    function showPage(pageId) {
-        pages.forEach(page => {
-            page.classList.remove('active-page');
-        });
-        const activePage = document.getElementById(pageId);
-        if(activePage) activePage.classList.add('active-page');
-
-        btns.forEach(btn => {
-            btn.classList.remove('active');
-            if(btn.getAttribute('data-page') === pageId) {
-                btn.classList.add('active');
-            }
-        });
-    }
-
-    
-    btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const pageId = btn.getAttribute('data-page');
-            showPage(pageId);
-        });
-    });
-    document.querySelector('[data-page="home"]').classList.add('active');
-</script>
+<script src="js/main.js"></script>
 </body>
 </html>
